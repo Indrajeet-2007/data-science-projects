@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>What If? — Life Simulator</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #0b0f19;
+            color: white;
+            min-height: 100vh;
+        }
+
+        /* NAVBAR */
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 8%;
+            border-bottom: 1px solid #252b38;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #6c63ff;
+        }
+
+        nav p {
+            color: #8f96a3;
+        }
+
+        /* HERO */
+
+        .hero {
+            text-align: center;
+            padding: 60px 20px 40px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .hero h1 span {
+            color: #6c63ff;
+        }
+
+        .hero p {
+            color: #9aa1ad;
+            font-size: 18px;
+        }
+
+        /* MAIN */
+
+        .container {
+            width: 85%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .card {
+            background: #121824;
+            border: 1px solid #252c3a;
+            border-radius: 18px;
+            padding: 28px;
+        }
+
+        .card h2 {
+            margin-bottom: 25px;
+        }
+
+        /* INPUTS */
+
+        .input-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            color: #aab1bd;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            background: #0b0f19;
+            border: 1px solid #303747;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #6c63ff;
+        }
+
+        /* BUTTON */
+
+        button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: #6c63ff;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        /* RESULTS */
+
+        .result-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .stat {
+            background: #0b0f19;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .stat p {
+            color: #8e96a5;
+            margin-bottom: 8px;
+        }
+
+        .stat h3 {
+            font-size: 28px;
+        }
+
+        .positive {
+            color: #4ade80;
+        }
+
+        .negative {
+            color: #ff6464;
+        }
+
+        /* SCORE */
+
+        .score {
+            text-align: center;
+            margin-top: 25px;
+            padding: 25px;
+            background: #0b0f19;
+            border-radius: 15px;
+        }
+
+        .score-number {
+            font-size: 55px;
+            font-weight: bold;
+            color: #6c63ff;
+        }
+
+        .score p {
+            color: #9ba2ae;
+        }
+
+        /* WHAT IF */
+
+        .slider-container {
+            margin-top: 20px;
+        }
+
+        input[type="range"] {
+            padding: 0;
+            accent-color: #6c63ff;
+        }
+
+        .slider-value {
+            text-align: center;
+            font-size: 30px;
+            font-weight: bold;
+            margin: 15px;
+        }
+
+        /* INSIGHT */
+
+        .insight {
+            margin-top: 25px;
+            padding: 20px;
+            background: #171d2b;
+            border-left: 4px solid #6c63ff;
+            border-radius: 8px;
+        }
+
+        .insight p {
+            color: #c0c5ce;
+            line-height: 1.6;
+        }
+
+        /* FOOTER */
+
+        footer {
+            text-align: center;
+            color: #6f7785;
+            padding: 50px 20px;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 800px) {
+
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .container {
+                width: 92%;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav>
+        <div class="logo">
+            WHAT<span>IF?</span>
+        </div>
+
+        <p>Life Simulation Engine</p>
+    </nav>
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <h1>
+            What if your decisions <span>changed?</span>
+        </h1>
+
+        <p>
+            Simulate your future before you make the decision.
+        </p>
+
+    </section>
+
+
+    <main class="container">
+
+        <div class="dashboard">
+
+
+            <!-- INPUT CARD -->
+
+            <div class="card">
+
+                <h2>💰 Your Current Situation</h2>
+
+
+                <div class="input-group">
+
+                    <label>Monthly Income (₹)</label>
+
+                    <input
+                        type="number"
+                        id="income"
+                        value="50000"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>Rent (₹)</label>
+
+                    <input
+                        type="number"
+                        id="rent"
+                        value="12000"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>Food (₹)</label>
+
+                    <input
+                        type="number"
+                        id="food"
+                        value="7000"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>Transport (₹)</label>
+
+                    <input
+                        type="number"
+                        id="transport"
+                        value="4000"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>Entertainment (₹)</label>
+
+                    <input
+                        type="number"
+                        id="entertainment"
+                        value="3000"
+                    >
+
+                </div>
+
+
+                <button onclick="calculate()">
+                    Analyze My Situation
+                </button>
+
+            </div>
+
+
+
+            <!-- RESULTS -->
+
+            <div class="card">
+
+                <h2>📊 Financial Snapshot</h2>
+
+
+                <div class="result-box">
+
+                    <div class="stat">
+
+                        <p>Total Expenses</p>
+
+                        <h3 id="expenses">
+                            ₹0
+                        </h3>
+
+                    </div>
+
+
+                    <div class="stat">
+
+                        <p>Monthly Savings</p>
+
+                        <h3 id="savings">
+                            ₹0
+                        </h3>
+
+                    </div>
+
+
+                    <div class="stat">
+
+                        <p>Yearly Savings</p>
+
+                        <h3 id="yearly">
+                            ₹0
+                        </h3>
+
+                    </div>
+
+
+                    <div class="stat">
+
+                        <p>Savings Rate</p>
+
+                        <h3 id="rate">
+                            0%
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <div class="score">
+
+                    <p>Financial Health Score</p>
+
+                    <div
+                        class="score-number"
+                        id="score"
+                    >
+                        0
+                    </div>
+
+                    <p id="scoreText">
+                        Enter your information
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- WHAT IF -->
+
+        <div class="card" style="margin-top:25px;">
+
+            <h2>🔮 What If Simulator</h2>
+
+            <p style="color:#9299a6;">
+                What happens if your income changes?
+            </p>
+
+
+            <div class="slider-container">
+
+                <input
+                    type="range"
+                    id="incomeSlider"
+                    min="20000"
+                    max="150000"
+                    value="50000"
+                    step="1000"
+                    oninput="simulate()"
+                >
+
+                <div
+                    class="slider-value"
+                    id="sliderValue"
+                >
+                    ₹50,000
+                </div>
+
+            </div>
+
+
+            <div class="result-box">
+
+                <div class="stat">
+
+                    <p>New Monthly Savings</p>
+
+                    <h3
+                        id="newSavings"
+                        class="positive"
+                    >
+                        ₹0
+                    </h3>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <p>New Yearly Savings</p>
+
+                    <h3
+                        id="newYearly"
+                        class="positive"
+                    >
+                        ₹0
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <div class="insight">
+
+                <p id="insightText">
+                    Move the slider to simulate your future.
+                </p>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+
+    <footer>
+
+        What If? © 2026 — Simulate before you decide.
+
+    </footer>
+
+
+
+    <script>
+
+        function getNumber(id) {
+
+            return Number(
+                document.getElementById(id).value
+            ) || 0;
+
+        }
+
+
+
+        function calculate() {
+
+            const income =
+                getNumber("income");
+
+            const rent =
+                getNumber("rent");
+
+            const food =
+                getNumber("food");
+
+            const transport =
+                getNumber("transport");
+
+            const entertainment =
+                getNumber("entertainment");
+
+
+            const expenses =
+                rent +
+                food +
+                transport +
+                entertainment;
+
+
+            const savings =
+                income - expenses;
+
+
+            const yearly =
+                savings * 12;
+
+
+            let rate = 0;
+
+            if (income > 0) {
+
+                rate =
+                    (savings / income) * 100;
+
+            }
+
+
+            document.getElementById("expenses")
+                .innerText =
+                "₹" + expenses.toLocaleString("en-IN");
+
+
+            document.getElementById("savings")
+                .innerText =
+                "₹" + savings.toLocaleString("en-IN");
+
+
+            document.getElementById("yearly")
+                .innerText =
+                "₹" + yearly.toLocaleString("en-IN");
+
+
+            document.getElementById("rate")
+                .innerText =
+                rate.toFixed(1) + "%";
+
+
+            let score =
+                Math.round(rate * 2);
+
+
+            if (score > 100)
+                score = 100;
+
+            if (score < 0)
+                score = 0;
+
+
+            document.getElementById("score")
+                .innerText =
+                score;
+
+
+            let text;
+
+
+            if (score >= 80) {
+
+                text =
+                    "Excellent financial position 🚀";
+
+            }
+
+            else if (score >= 60) {
+
+                text =
+                    "Good position — keep improving 👍";
+
+            }
+
+            else if (score >= 40) {
+
+                text =
+                    "Moderate — there is room to improve ⚠️";
+
+            }
+
+            else {
+
+                text =
+                    "High spending detected — review your expenses 🔴";
+
+            }
+
+
+            document.getElementById("scoreText")
+                .innerText =
+                text;
+
+
+            simulate();
+
+        }
+
+
+
+        function simulate() {
+
+            const income =
+                Number(
+                    document.getElementById(
+                        "incomeSlider"
+                    ).value
+                );
+
+
+            const rent =
+                getNumber("rent");
+
+            const food =
+                getNumber("food");
+
+            const transport =
+                getNumber("transport");
+
+            const entertainment =
+                getNumber("entertainment");
+
+
+            const expenses =
+                rent +
+                food +
+                transport +
+                entertainment;
+
+
+            const savings =
+                income - expenses;
+
+
+            const yearly =
+                savings * 12;
+
+
+            document.getElementById(
+                "sliderValue"
+            ).innerText =
+                "₹" +
+                income.toLocaleString("en-IN");
+
+
+            document.getElementById(
+                "newSavings"
+            ).innerText =
+                "₹" +
+                savings.toLocaleString("en-IN");
+
+
+            document.getElementById(
+                "newYearly"
+            ).innerText =
+                "₹" +
+                yearly.toLocaleString("en-IN");
+
+
+            let message;
+
+
+            if (savings > 30000) {
+
+                message =
+                    "🔥 This scenario gives you a strong savings potential.";
+
+            }
+
+            else if (savings > 15000) {
+
+                message =
+                    "👍 This scenario looks financially comfortable.";
+
+            }
+
+            else if (savings > 0) {
+
+                message =
+                    "⚠️ You are saving money, but your financial buffer is limited.";
+
+            }
+
+            else {
+
+                message =
+                    "🔴 Your expenses exceed your income in this scenario.";
+
+            }
+
+
+            document.getElementById(
+                "insightText"
+            ).innerText =
+                message;
+
+        }
+
+
+
+        // Run automatically when page loads
+
+        calculate();
+
+    </script>
+
+</body>
+
+</html>
